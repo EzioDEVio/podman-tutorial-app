@@ -1,4 +1,4 @@
-
+[![Podman Build and Trivy Scan](https://github.com/EzioDEVio/podman-tutorial-app/actions/workflows/podman-trivy.yml/badge.svg)](https://github.com/EzioDEVio/podman-tutorial-app/actions/workflows/podman-trivy.yml)
 
 # **Podman Interactive Web App**
 
