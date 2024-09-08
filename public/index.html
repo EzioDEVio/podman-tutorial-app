@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podman Tutorial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+  <div class="container">
+    <h1 id="welcome-message">Welcome to Podman Tutorial!</h1>
+    <p id="instruction-text">Please enter your name for a personalized greeting:</p>
+    
+    <!-- Theme Switcher Button -->
+    <button id="theme-toggle" class="theme-btn">Toggle Dark Mode</button>
+
+    <!-- Interactive Form -->
+    <form id="name-form">
+      <input type="text" id="name-input" placeholder="Enter your name" required>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    
+    <!-- Loading animation -->
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p>Processing...</p>
+    </div>
+    
+    <!-- Live feedback area -->
+    <div id="feedback" class="hidden">
+      <p id="personalized-message"></p>
+      <button id="reset-btn" class="hidden">Reset</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

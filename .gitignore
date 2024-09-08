@@ -1,0 +1,22 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+
+# Local environment files
+.env
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+coverage/
+public/build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker related
+.dockerignore
+Dockerfile
