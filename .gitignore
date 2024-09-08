@@ -18,5 +18,5 @@ public/build/
 Thumbs.db
 
 # Docker related
-.dockerignore
+
 

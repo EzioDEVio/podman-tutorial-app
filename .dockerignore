@@ -1,0 +1,25 @@
+# Node.js dependencies (they are installed inside the container)
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Git files
+.git/
+.gitignore
+
+# Local environment files
+.env
+
+# Test and coverage files
+coverage/
+tests/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker related
+Dockerfile
+.dockerignore
