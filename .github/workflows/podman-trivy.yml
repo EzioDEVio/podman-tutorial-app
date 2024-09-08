@@ -39,10 +39,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y trivy
 
-      # Scan the built image with Trivy
-      - name: Trivy Scan Docker Image
+      # Scan the built image with Trivy and save report as JSON
+      - name: Trivy Scan Docker Image and Save Report
         run: |
-          trivy image podman-tutorial-app
+          trivy image --format json --output trivy-report.json podman-tutorial-app
+
+      # Upload the Trivy report as an artifact
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-report
+          path: trivy-report.json
 
       # Optional: Push the Docker image to Docker Hub
       - name: Log in to Docker Hub
