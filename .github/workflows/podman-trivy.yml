@@ -17,11 +17,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Podman
-      - name: Set up Podman
-        uses: containers/podman-action@v4
-        with:
-          install: true
+      # Install Podman
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install podman
+          podman --version
 
       # Build the Docker image using Podman
       - name: Build Docker image using Podman
@@ -43,7 +44,7 @@ jobs:
         run: |
           trivy image podman-tutorial-app
 
-      # Optional: Push the Docker image to a container registry
+      # Optional: Push the Docker image to Docker Hub
       - name: Log in to Docker Hub
         if: success()
         uses: docker/login-action@v2
