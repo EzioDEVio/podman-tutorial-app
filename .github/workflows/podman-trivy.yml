@@ -1,0 +1,58 @@
+name: Podman Build and Trivy Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Podman
+      - name: Set up Podman
+        uses: containers/podman-action@v4
+        with:
+          install: true
+
+      # Build the Docker image using Podman
+      - name: Build Docker image using Podman
+        run: |
+          podman build -t podman-tutorial-app .
+
+      # Install Trivy for scanning vulnerabilities
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      # Scan the built image with Trivy
+      - name: Trivy Scan Docker Image
+        run: |
+          trivy image podman-tutorial-app
+
+      # Optional: Push the Docker image to a container registry
+      - name: Log in to Docker Hub
+        if: success()
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image to Docker Hub
+        if: success()
+        run: |
+          podman tag podman-tutorial-app docker.io/${{ secrets.DOCKER_USERNAME }}/podman-tutorial-app:latest
+          podman push docker.io/${{ secrets.DOCKER_USERNAME }}/podman-tutorial-app:latest
